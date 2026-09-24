@@ -1,7 +1,6 @@
 # bbtl
 
-`bbtl` is an interactive task picker for projects written in Clojure dialects. Run it from a
-project's root to discover and run [`bb.edn` tasks](https://book.babashka.org/#tasks).
+Run `bbtl` from a project's root to discover and run [`bb.edn` tasks](https://book.babashka.org/#tasks).
 
 
 <p align="center">
