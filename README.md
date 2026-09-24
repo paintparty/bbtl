@@ -24,6 +24,10 @@ Then use `bbin` to install `bbtl`:
 
 ```sh
 bbin install io.github.paintparty/bbtl
+```
+
+To uninstall:
+```sh
 bbin uninstall bbtl
 ```
 
