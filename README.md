@@ -27,16 +27,6 @@ bbin install io.github.paintparty/bbtl
 bbin uninstall bbtl
 ```
 
-From the a local checkout of `bbtl`:
-
-```sh
-bbin install . --as bbtl-local
-bbin uninstall bbtl-local
-
-# Optional default-name local install
-bbin install . --as bbtl
-```
-
 <br>
 
 ## Usage
@@ -87,22 +77,70 @@ Shortly after I finished the initial prototype of this project, Babashka itself 
 
 ## Development
 
+### Install locally with bbin
+
+Use this when developing from a checkout. The installed command continues to
+use this local source tree, so Clojure source edits are available the next time
+you run it.
+
+1. Install [bbin](https://github.com/babashka/bbin) and make sure its bin
+   directory is on your `PATH`:
+
+   ```sh
+   brew install babashka/brew/bbin
+   echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.zshrc
+   exec zsh
+   ```
+
+2. Clone this repository and enter it:
+
+   ```sh
+   git clone git@github.com:paintparty/bbtl.git bbtl
+   cd bbtl
+   ```
+
+3. Install this checkout under a development-safe command name:
+
+   ```sh
+   bbin install . --as bbtl-local
+   ```
+
+4. Run it:
+
+   ```sh
+   bbtl-local
+   ```
+
+5. Remove the local command when finished:
+
+   ```sh
+   bbin uninstall bbtl-local
+   ```
+
+To install the checkout as the normal command instead, use
+`bbin install . --as bbtl` and run `bbtl`.
+
+<br>
+
+`bbtl`'s own `bb.edn` has a set of tasks to streamline the install/uninstall steps outlined above:
+
 ```sh
-bb bbtl                 # run the local command implementation
+bb install:bbtl-local   # install this checkout as bbtl-local (dev-safe name)
+bb install:bbtl         # install this checkout as bbtl (will override existing bbtl installation)
+bb uninstall:bbtl-local # uninstall bbtl-local
+bb uninstall:bbtl       # uninstall bbtl
+```
+
+`bbtl`'s own `bb.edn` has a additional tasks for running tests:
+<br>
+```sh
 bb test                 # run the tests on the JVM
 bb test:bb              # run the tests under Babashka
 bb test:all             # run both test suites
 bb ci                   # run the CI pipeline (test:all)
 ```
 
-Install and uninstall a local checkout with:
-
-```sh
-bb install:bbtl-local   # install this checkout as bbtl-local
-bb install:bbtl         # install this checkout as bbtl
-bb uninstall:bbtl-local # uninstall bbtl-local
-bb uninstall:bbtl       # uninstall bbtl
-```
+<br>
 
 ## License
 
