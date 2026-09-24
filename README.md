@@ -82,13 +82,7 @@ Shortly after I finished the initial prototype of this project, Babashka itself 
 - `bb` lists all tasks, then other files and folders below that. `bbtl` only lists the tasks.
 - `bb` lists all tasks alphabetically, `bbtl` preserves order as written.
 - `bb` truncates task description after first sentence. `bbtl` will print the whole description, wrapping the second column at 80 columns while preserving the overall 2-column layout.
-- Styling of focused task and formatting of descriptions (see screen recording below for `bb` example, and compare to `bbtl` screen recording at top of this readme.).
-
-<sub>Screen recording of `bb`'s own native `<Tab>` completion:
-<p align="center">
-  <img src="resources/screens/motion/bb-tab-completion_light-mode.gif#gh-light-mode-only"></img>
-  <img src="resources/screens/motion/bb-tab-completion_dark-mode.gif#gh-dark-mode-only"></img>
-</p>
+- Styling of focused task and descriptions: `bb` uses inverse styling on the focused task and description (`bbtl` uses bold, with a `>` char to the left of the focused task).
 
 
 <br>
