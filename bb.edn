@@ -1,0 +1,33 @@
+{:paths ["src"]
+ :deps  {org.clojure/clojure     {:mvn/version "1.12.5"}
+         de.timokramer/charm.clj {:mvn/version "0.2.74"}
+         rewrite-clj/rewrite-clj {:mvn/version "1.1.49"}}
+ :bbin/bin {bbtl {:main-opts ["-m" "bbtl.core"]}}
+ :tasks
+ {bbtl {:doc  "Pick and run a public bb task from ./bb.edn"
+        :task (do (require '[bbtl.core])
+                  (apply (resolve 'bbtl.core/-main)
+                         *command-line-args*))}
+
+  test      {:doc  "Run the test suite."
+             :task (clojure "-M:test" "-m" "cognitect.test-runner")}
+
+  test:bb   {:doc         "Run the test suite using Babashka to check compatibility."
+             :extra-paths ["test"]
+             :extra-deps  {io.github.cognitect-labs/test-runner {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+             :task        (exec 'cognitect.test-runner.api/test)}
+
+  test:all  {:doc     "Run the test suite with both Clojure and Babashka."
+             :depends [test test:bb]}
+
+  ci        {:doc     "Run the CI pipeline of tests."
+             :depends [test:all]}
+
+  install:bbtl-local   {:doc  "Install this checkout as bbtl-local."
+                        :task (shell "bbin" "install" "." "--as" "bbtl-local")}
+  install:bbtl         {:doc  "Install this checkout as bbtl."
+                        :task (shell "bbin" "install" "." "--as" "bbtl")}
+  uninstall:bbtl-local {:doc  "Uninstall bbtl-local."
+                        :task (shell "bbin" "uninstall" "bbtl-local")}
+  uninstall:bbtl       {:doc  "Uninstall bbtl."
+                        :task (shell "bbin" "uninstall" "bbtl")}}}
