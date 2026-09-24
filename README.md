@@ -1,7 +1,7 @@
 # bbtl
 
 `bbtl` is an interactive task picker for projects written in Clojure dialects. Run it from a
-project directory to discover and run tasks in that directory's `bb.edn`.
+project's root to discover and run [`bb.edn` tasks](https://book.babashka.org/#tasks).
 
 
 <p align="center">
@@ -83,7 +83,6 @@ Shortly after I finished the initial prototype of this project, Babashka itself 
 - `bb` lists all tasks alphabetically, `bbtl` preserves order as written.
 - `bb` truncates task description after first sentence. `bbtl` will print the whole description, wrapping the second column at 80 columns while preserving the overall 2-column layout.
 - Styling of focused task and descriptions: `bb` uses inverse styling on the focused task and description (`bbtl` uses bold, with a `>` char to the left of the focused task).
-
 
 <br>
 
