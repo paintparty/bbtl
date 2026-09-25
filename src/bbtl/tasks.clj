@@ -108,7 +108,10 @@
 
 (defn- picker-width
   [state]
-  (max 1 (min picker-max-width (or (:term-width state) picker-max-width))))
+  ;; Reserve the terminal's final column: a line that fills the last column
+  ;; loses its final character when JLine paints it, which cut words mid-token.
+  (let [term (max 1 (or (:term-width state) picker-max-width))]
+    (max 1 (min picker-max-width (dec term)))))
 
 (defn- visible-task-count
   [state]

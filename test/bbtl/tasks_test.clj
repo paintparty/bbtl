@@ -200,7 +200,7 @@
     (is (not (str/starts-with? initial "\n")))
     (is (str/includes? initial
                        (str "\033[1m" tasks/bb-task-cta "\033[0m"
-                            "\033[2m (Use arrow keys)\033[0m")))
+                            "\033[2m (Use arrow keys or j/k)\033[0m")))
     #_(is (str/includes? initial "\033[2m──────────────────────────\033[0m"))
     (is (not (str/includes? initial "\n\n\033[1m> test")))
     (is (str/includes? initial "Use arrow keys"))
@@ -231,19 +231,19 @@
                :term-width    59
                :term-height   24}]
     (with-redefs [tasks/tasks-gap 0]
-      (is (= [(str tasks/bb-task-cta " (Use arrow keys)")
+      (is (= [(str tasks/bb-task-cta " (Use arrow keys or j/k)")
               "> test    Runs tests"
               "  deploy  Deploys the project"]
              (str/split-lines (strip-ansi (#'tasks/picker-view state))))))
     (with-redefs [tasks/tasks-gap 1]
-      (is (= [(str tasks/bb-task-cta " (Use arrow keys)")
+      (is (= [(str tasks/bb-task-cta " (Use arrow keys or j/k)")
               ""
               "> test    Runs tests"
               ""
               "  deploy  Deploys the project"]
              (str/split-lines (strip-ansi (#'tasks/picker-view state))))))
     (with-redefs [tasks/tasks-gap 2]
-      (is (= [(str tasks/bb-task-cta " (Use arrow keys)")
+      (is (= [(str tasks/bb-task-cta " (Use arrow keys or j/k)")
               ""
               ""
               "> test    Runs tests"
@@ -275,10 +275,10 @@
         second-view      (#'tasks/picker-view second-secondary)]
     (is (= :cmd (:type command)))
     (is (= "" initial-view))
-    (is (str/ends-with? typing-view "\033[2m (Use arrow keys)\033[0m"))
+    (is (str/ends-with? typing-view "\033[2m (Use arrow keys or j/k)\033[0m"))
     (is (str/starts-with? cta-view
                           (str "\033[1m" tasks/bb-task-cta "\033[0m"
-                               "\033[2m (Use arrow keys)\033[0m")))
+                               "\033[2m (Use arrow keys or j/k)\033[0m")))
     (is (str/includes? cta-view "\033[2m> test"))
     (is (str/includes? first-view "\033[1m> test"))
     (is (not (str/includes? first-view "\033[2m  deploy")))
