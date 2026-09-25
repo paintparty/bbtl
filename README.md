@@ -152,8 +152,8 @@ Issues for bugs, improvements, or features are very welcome. Please file an issu
 <br>
 
 ## Inspo
-- [`ntl`, (Node Task List)](https://github.com/ruyadorno/ntl)
-- [`just --choose`, The Just command runner's `--choose` feature](https://github.com/casey/just/blob/master/README.md#selecting-recipes-to-run-with-an-interactive-chooser)
+- [`ntl`](https://github.com/ruyadorno/ntl), (Node Task List)
+- [`just --choose`](https://github.com/casey/just/blob/master/README.md#selecting-recipes-to-run-with-an-interactive-chooser), The Just command runner's `--choose` feature
 
 <br>
 
