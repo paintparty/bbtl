@@ -69,13 +69,13 @@ return 0. Unsupported arguments print usage to stderr and return 1.
 
 ## Differences from bb's `<Tab>` completion
 
-Shortly after the initial prototype of `bbtl` was complete, Babashka itself announced native support for `<Tab>` completion of tasks in a project's `bb.edn`. Current differences as compared to bbtl:
+Shortly after the initial prototype of `bbtl` was complete, Babashka itself announced native support for `<Tab>` completion of tasks in a project's `bb.edn`. Current differences as compared to `bbtl`:
 - `bb` requires setting up a babashka completions snippet after `compinit` in your `.zshrc` or similar.
 - `bb` uses `<Tab>` key for navigation (`bbtl` uses up/down or j/k).
 - `bb` lists all tasks, then other files and folders below that. `bbtl` only lists the tasks.
 - `bb` lists all tasks alphabetically, `bbtl` preserves order as written.
 - `bb` truncates task description after first sentence. `bbtl` will print the whole description, wrapping the second column at 80 columns while preserving the overall 2-column layout.
-- Styling of focused task and descriptions: `bb` uses inverse styling on the focused task and description (`bbtl` uses bold, with a `>` char to the left of the focused task).
+- Styling of focused task and descriptions: `bb` uses inverse styling on the focused task and description. `bbtl` uses bold to highlight focused tasks, with a `>` char to the left of the focused task.
 
 <br>
 
