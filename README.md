@@ -18,7 +18,7 @@ Run `bbtl` from a project's root to discover and run [`bb.edn` tasks](https://bo
 <br>
 
 ## Installation
-First, install [bbin](https://github.com/babashka/bbin) if it is not on your system.
+If not already installed, install [bbin](https://github.com/babashka/bbin).
 
 Then use `bbin` to install `bbtl`:
 
@@ -35,13 +35,13 @@ bbin uninstall bbtl
 
 ## Usage
 
-From any project containing `bb.edn`:
+From any project containing a `bb.edn`:
 
 ```sh
 bbtl
 ```
 
-The picker preserves public task order from `bb.edn`, ignores private task
+The picker preserves the order of (public) tasks from `bb.edn`, ignores private task
 names beginning with `-`, and never evaluates task forms during discovery.
 
 Keyboard controls:
@@ -69,7 +69,7 @@ return 0. Unsupported arguments print usage to stderr and return 1.
 
 ## Differences from bb's `<Tab>` completion
 
-Shortly after I finished the initial prototype of this project, Babashka itself announced native support for `<Tab>` completion of tasks in a project's `bb.edn`. Current differences:
+Shortly after the initial prototype of `bbtl` was complete, Babashka itself announced native support for `<Tab>` completion of tasks in a project's `bb.edn`. Current differences as compared to bbtl:
 - `bb` requires setting up a babashka completions snippet after `compinit` in your `.zshrc` or similar.
 - `bb` uses `<Tab>` key for navigation (`bbtl` uses up/down or j/k).
 - `bb` lists all tasks, then other files and folders below that. `bbtl` only lists the tasks.
@@ -143,6 +143,17 @@ bb test:bb              # run the tests under Babashka
 bb test:all             # run both test suites
 bb ci                   # run the CI pipeline (test:all)
 ```
+
+<br>
+
+## Contributing
+Issues for bugs, improvements, or features are very welcome. Please file an issue for discussion before starting or issuing a PR.
+
+<br>
+
+## Inspo
+- [`ntl`, (Node Task List)](https://github.com/ruyadorno/ntl)
+- [`just --choose`, The Just command runner's `--choose` feature](https://github.com/casey/just/blob/master/README.md#selecting-recipes-to-run-with-an-interactive-chooser)
 
 <br>
 
