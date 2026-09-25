@@ -206,7 +206,7 @@
   "? Select a bb task to run:")
 
 (def ^:private bb-task-cta-hint
-  " (Use arrow keys)")
+  " (Use arrow keys or j/k)")
 
 (defn- gap-lines
   []
