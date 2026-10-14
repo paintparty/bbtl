@@ -92,6 +92,16 @@
    none of the reveal-animation mechanics (no tick command, no per-task phases)."
   false)
 
+(def scrolling?
+  "When false, scrolling is disabled and the picker prints the whole task list
+   every time, ignoring max-visible-tasks and the terminal height."
+  true)
+
+(def max-visible-tasks
+  "Most tasks shown at once before the list scrolls and the ↑/↓ more
+   indicators appear. The terminal height can still lower this."
+  44)
+
 (def ^:private picker-max-width 80)
 (def tasks-gap 0)
 (def tasks-animation-frame-rate 5)
@@ -115,8 +125,11 @@
 
 (defn- visible-task-count
   [state]
-  ;; Reserve three header lines and one separator line per task.
-  (max 1 (min 10 (quot (max 1 (- (or (:term-height state) 24) 3)) 2))))
+  (if scrolling?
+    ;; Reserve three header lines and one separator line per task.
+    (max 1 (min max-visible-tasks
+                (quot (max 1 (- (or (:term-height state) 24) 3)) 2)))
+    (max 1 (count (:tasks state)))))
 
 (defn- clamp
   [value lower upper]
@@ -143,7 +156,7 @@
   when necessary to honour the supplied width."
   [text width]
   (let [width (max 1 width)]
-    (loop [remaining (str/trim (str text))
+    (loop [remaining (str/trim (str/replace (str text) #"\s+" " "))
            lines     []]
       (cond
         (empty? remaining)
@@ -231,15 +244,17 @@
         window            (menu/visible-window tasks selected-idx item-capacity)
         scroll-offset     (:start window)
         name-width        (task-name-width tasks width)
-        show-description? (and (> (or (:term-height state) 24) 12)
-                               (> width 16))
+        show-description? (> width 16)
         animated?         (not= :done animation-phase)
         reveal-count      (if (= :cta animation-phase)
                             0
                             (min (count tasks) (inc (or animation-index -1))))
         rows              (:lines
                            (menu/render-window
-                            tasks selected-idx item-capacity (+ 2 (* 2 item-capacity))
+                            tasks selected-idx item-capacity
+                            (if scrolling?
+                              (+ 2 (* 2 item-capacity))
+                              Integer/MAX_VALUE)
                             (fn [index task]
                               (when (or (not animated?) (< index reveal-count))
                                 (concat
@@ -254,7 +269,7 @@
                                                 :secondary)))))
                             (fn [arrow hidden]
                               (when (or (= arrow "↑") (not animated?))
-                                (secondary (str " " arrow " " hidden " more"))))))]
+                                (secondary (str arrow " " hidden " more"))))))]
     (str/join "\n"
               (concat (cta-lines width (if (= :cta animation-phase)
                                          animation-index
