@@ -167,8 +167,8 @@
         plain (strip-ansi rendered)]
     (is (<= (count (str/split-lines plain)) (:term-height state)))
     (is (str/includes? plain "> task-8"))
-    (is (str/includes? rendered "\033[2m ↑ 5 more\033[0m"))
-    (is (str/includes? rendered "\033[2m ↓ 3 more\033[0m"))))
+    (is (str/includes? rendered "\033[2m↑ 5 more\033[0m"))
+    (is (str/includes? rendered "\033[2m↓ 3 more\033[0m"))))
 
 (deftest picker-bounds-wrapped-task-content-to-its-row-budget
   (let [state {:tasks (mapv (fn [index]
